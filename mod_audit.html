@@ -1,0 +1,149 @@
+<!-- $Id: mod_audit.html,v 1.1 2008/10/06 16:45:16 tjs Exp tjs $ -->
+<!-- $Source: /home/tjs/modules/mod_audit/RCS/mod_audit.html,v $ -->
+
+<html>
+<head>
+<title>ProFTPD module mod_audit</title>
+</head>
+
+<body bgcolor=white>
+
+<hr>
+<center>
+<h2><b>ProFTPD module <code>mod_audit</code></b></h2>
+</center>
+<hr><br>
+
+<p>
+The <code>mod_audit</code> module implements audit logging using the
+Basic Security Module (BSM) API, originally developed by
+<a href="http://docs.sun.com/app/docs/doc/805-2635?l=en&q=Basic+Security+Module+Guide">Sun</a>.  The BSM API is now available on other platforms via the
+<a href="http://www.trustedbsd.org/openbsm.html">OpenBSM project</a>.  For
+more reading on this, see:
+<ul>
+  <li><a href="http://en.wikipedia.org/wiki/OpenBSM">Wikipedia article on OpenBSM</a>
+  <li><a href=" http://www.deer-run.com/~hal/sysadmin/SolarisBSMAuditing.htm">Article on Sun BSM</a>
+</ul>
+
+<p>
+The most current version of <code>mod_audit</code> can be found at:
+<pre>
+  <a href="http://www.castaglia.org/proftpd/">http://www.castaglia.org/proftpd/</a>
+</pre>
+
+<h2>Author</h2>
+<p>
+Please contact TJ Saunders &lt;tj <i>at</i> castaglia.org&gt; with any
+questions, concerns, or suggestions regarding this module.
+
+<h2>Directives</h2>
+<ul>
+  <li><a href="#AuditEngine">AuditEngine</a>
+  <li><a href="#AuditEventID">AuditEventID</a>
+  <li><a href="#AuditLog">AuditLog</a>
+</ul>
+
+<p>
+<hr>
+<h2><a name="AuditEngine">AuditEngine</a></h2>
+<strong>Syntax:</strong> AuditEngine <em>on|off</em><br>
+<strong>Default:</strong> <em>off</em><br>
+<strong>Context:</strong> &quot;server config&quot;, &lt;VirtualHost&gt;, &lt;Global&gt;<br>
+<strong>Module:</strong> mod_audit<br>
+<strong>Compatibility:</strong> 1.3.2rc3 and later
+
+<p>
+The <code>AuditEngine</code> directive toggles the auditing (via BSM) of
+FTP sessions via <code>mod_audit</code>.  This directive can thus be used
+to disable <code>mod_audit</code> if necessary.
+
+<p>
+<hr>
+<h2><a name="AuditEventID">AuditEventID</a></h2>
+<strong>Syntax:</strong> AuditEventID <em>id</em><br>
+<strong>Default:</strong> <em>None</em><br>
+<strong>Context:</strong> &quot;server config&quot;, &lt;VirtualHost&gt;, &lt;Global&gt;<br>
+<strong>Module:</strong> mod_audit<br>
+<strong>Compatibility:</strong> 1.3.2rc3 and later
+
+<p>
+The <code>AuditEventID</code> directive configures the ID that the
+<code>mod_audit</code> module should use when recording any application-specific
+events in the audit logs.  By default, the <code>mod_audit</code> module
+will attempt to use the <code>AUE_ftpd</code> ID, if available.
+
+<p>
+<hr>
+<h2><a name="AuditLog">AuditLog</a></h2>
+<strong>Syntax:</strong> AuditLog <em>file|"none"</em><br>
+<strong>Default:</strong> <em>None</em><br>
+<strong>Context:</strong> &quot;server config&quot;, &lt;VirtualHost&gt;, &lt;Global&gt;<br>
+<strong>Module:</strong> mod_audit<br>
+<strong>Compatibility:</strong> 1.3.2rc3 and later
+
+<p>
+The <code>AuditLog</code> directive is used to specify a log file for
+<code>mod_audit</code>'s reporting on a per-server basis.  The <em>file</em>
+parameter given must be the full path to the file to use for logging.
+
+<p>
+Note that this path must <b>not</b> be to a world-writable directory and,
+unless <code>AllowLogSymlinks</code> is explicitly set to <em>on</em>
+(generally a bad idea), the path must <b>not</b> be a symbolic link.
+
+<p>
+<hr>
+<h2><a name="Installation">Installation</a></h2>
+To install <code>mod_audit</code>, go to the third-party module area in
+the proftpd source code and unpack the <code>mod_audit</code> source tarball:
+<pre>
+  cd <i>proftpd-dir</i>/contrib/
+  tar zxvf /path/to/mod_audit-<i>version</i>.tar.gz
+</pre>
+after unpacking the latest proftpd-1.3.2 source code.  For including
+<code>mod_audit</code> as a staticly linked module:
+<pre>
+  ./configure --with-modules=mod_audit ...
+</pre>
+Alternatively, <code>mod_audit</code> can be built as a DSO module:
+<pre>
+  ./configure --enable-dso --with-shared=mod_audit ...
+</pre>
+Then follow the usual steps:
+<pre>
+  make
+  make install
+</pre>
+
+<p>
+<hr>
+<h2><a name="Usage">Usage</a></h2>
+<p>
+
+<p>
+<b>Example Configuration</b><br>
+<pre>
+  &lt;IfModule mod_audit.c&gt;
+    AuditEngine on
+    AuditLog /etc/proftpd/audit.log
+  &lt;/IfModule&gt;
+</pre>
+
+<p>
+<hr><br>
+
+Author: <i>$Author: tjs $</i><br>
+Last Updated: <i>$Date: 2008/10/06 16:45:16 $</i><br>
+
+<br><hr>
+
+<font size=2><b><i>
+&copy; Copyright 2008 TJ Saunders<br>
+ All Rights Reserved<br>
+</i></b></font>
+
+<hr><br>
+
+</body>
+</html>
+
