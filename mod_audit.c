@@ -21,8 +21,8 @@
  * resulting executable, without including the source code for OpenSSL in the
  * source distribution.
  *
- * DO NOT EDIT BELOW THIS LINE
- * $Libraries: -lbsm $
+ * -----DO NOT EDIT BELOW THIS LINE-----
+ * $Libraries: -lbsm$
  */
 
 #include "mod_audit.h"

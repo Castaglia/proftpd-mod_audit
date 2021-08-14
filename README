@@ -1,4 +1,0 @@
-The mod_audit module for ProFTPD uses the system-level audit logging
-for logging certain data.
-
-For further module documentation, see mod_audit.html.

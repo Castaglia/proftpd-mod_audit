@@ -1,0 +1,8 @@
+*.lo
+*~
+*.sw?
+autom4te.cache
+config.log
+config.cache
+config.status
+tests.log
